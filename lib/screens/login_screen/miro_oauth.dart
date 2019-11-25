@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:miro_voice_memos/modules/2oauth/2oauth.dart';
 import '../../modules/2oauth/2oauth_cfg.dart';
 
 class MiroOauthScreen extends StatefulWidget {
@@ -55,6 +56,9 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
             RegExp regExp = new RegExp("code=(.*?)&");
             this.code = regExp.firstMatch(url)?.group(1);
             print("code $code");
+            print("sssssfasdasfasdsssss");
+            var token = getToken(code);
+            print("asdasdasd" + token);
           }
         });
       }
