@@ -29,7 +29,7 @@ tokenExist() async {
   return exist;
 }
 
-getToken(code) async {
+getToken() async {
   final credentialsFile = await _localFile;
   var exists = await credentialsFile.exists();
 
@@ -37,8 +37,13 @@ getToken(code) async {
     print("credentials takes from file json");
     return new Token.fromJson(
         convert.jsonDecode(credentialsFile.readAsStringSync()));
+  } else {
+    throw 'Not authorized';
   }
+}
 
+getTokenFromCode(code) async {
+  final credentialsFile = await _localFile;
   var accessCode = code;
   var uri =
       "$apiBase/oauth/token?grant_type=authorization_code&client_id=$clientId&client_secret=$secretId&code=$accessCode&redirect_uri=$baseUrl/oauth";
