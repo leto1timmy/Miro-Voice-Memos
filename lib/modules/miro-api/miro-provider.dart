@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:miro_voice_memos/models/Board.dart';
 import 'package:miro_voice_memos/modules/2oauth/2oauth_cfg.dart';
 import 'dart:convert' as convert;
 import 'package:miro_voice_memos/modules/2oauth/token.dart';
@@ -8,7 +9,11 @@ main() async {
       "3074457347037984023", "b812a48a-d65b-4232-a90b-22dc7c7932bb", "Bearer");
   var miro = new MiroProvider();
   //var boards = miro.getAllBoards(token);
-  var boards = await miro.getBoard(token, "o9J_kwdigFY=");
+  //var boards = await miro.getBoard(token, "o9J_kwdigFY=");
+
+  var boards = await miro.getAllBoards(token);
+
+  print(boards[0].name);
 }
 
 class MiroProvider {
@@ -28,7 +33,7 @@ class MiroProvider {
     if (response.statusCode == 200) {
       Map<String, dynamic> map = convert.jsonDecode(response.body);
       print("Request success with data: $map.");
-      return map;
+      return new Board.fromJson(map);
     } else {
       var jsonResponse = convert.jsonDecode(response.body);
       print("Request failed with body: $jsonResponse.");
@@ -50,7 +55,12 @@ class MiroProvider {
     if (response.statusCode == 200) {
       Map<String, dynamic> map = convert.jsonDecode(response.body);
       print("Request success with data: $map.");
-      return map;
+      List<Board> boards = new List<Board>();
+      var userlist = map['data'];
+      userlist.forEach((el) {
+        boards.add(Board.fromJson(el));
+      });
+      return boards;
     } else {
       var jsonResponse = convert.jsonDecode(response.body);
       print("Request failed with body: $jsonResponse.");

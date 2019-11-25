@@ -25,20 +25,3 @@ class Board {
         'modifiedAt': modifiedAt
       };
 }
-
-void main(List<String> args) {
-  var jsonString = new File('./boards.json').readAsStringSync();
-  Map usersMap = jsonDecode(jsonString);
-
-  List<Board> boards = new List<Board>();
-  var userlist = usersMap['data'];
-  userlist.forEach((el) {
-    boards.add(Board.fromJson(el));
-  });
-
-  var board = boards[0];
-
-  print('name, ${board.name}!');
-  print('title, ${board.description}.');
-  print('created at, ${board.createdAt}');
-}
