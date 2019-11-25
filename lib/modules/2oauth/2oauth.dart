@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-
 import 'package:miro_voice_memos/modules/2oauth/token.dart';
 
 import '../../modules/2oauth/2oauth_cfg.dart';
@@ -30,7 +29,7 @@ getToken(code) async {
   if (exists) {
     print("credentials takes from file json");
     return new Token.fromJson(
-        convert.jsonDecode(await credentialsFile.readAsString()));
+        convert.jsonDecode(credentialsFile.readAsStringSync()));
   }
 
   var accessCode = code;

@@ -58,7 +58,6 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
             print("code $code");
             print("sssssfasdasfasdsssss");
             var token = getToken(code);
-            print("asdasdasd" + token);
           }
         });
       }
