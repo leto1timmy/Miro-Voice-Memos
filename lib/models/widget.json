@@ -1,0 +1,24 @@
+{
+  "type": "card",
+  "scale": 1.0,
+  "y": 0.0,
+  "x": 0.0,
+  "id": 3074457345618267604,
+  "date": "2020-01-21",
+  "title": "developer card",
+  "style": {
+    "backgroundColor": "#ff00ff"
+  },
+  "createdAt": "2019-04-10T08:10:33Z",
+  "createdBy": {
+    "type": "user",
+    "name": "igor",
+    "id": "3074457345618258730"
+  },
+  "modifiedAt": "2019-04-10T08:10:33Z",
+  "modifiedBy": {
+    "type": "user",
+    "name": "igor",
+    "id": "3074457345618258730"
+  }
+}
