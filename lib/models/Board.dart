@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'dart:convert' show jsonDecode;
 import 'dart:io';
 
 class Board {
@@ -29,15 +28,15 @@ class Board {
 
 void main(List<String> args) {
   var jsonString = new File('./boards.json').readAsStringSync();
-  Map userMap = jsonDecode(jsonString);
+  Map usersMap = jsonDecode(jsonString);
 
   List<Board> boards = new List<Board>();
-  var userlist = userMap['data'];
-  boards userlist.forEach((el) {
-    
+  var userlist = usersMap['data'];
+  userlist.forEach((el) {
+    boards.add(Board.fromJson(el));
   });
 
-  var board = Board.fromJson(userMap['data'][0]);
+  var board = boards[0];
 
   print('name, ${board.name}!');
   print('title, ${board.description}.');
