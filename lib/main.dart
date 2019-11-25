@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro_voice_memos/screens/login_screen/miro_oauth.dart';
 import './screens/login_screen/login.dart';
 
 void main() => runApp(MyApp());
@@ -21,6 +22,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginScreen(),
+      initialRoute: '/',
+      routes: {
+        // '/': (BuildContext context) => LoginScreen(),
+        '/miro_oath': (BuildContext contex) => MiroOauthScreen()
+      },
     );
   }
 }

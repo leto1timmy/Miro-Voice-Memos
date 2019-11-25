@@ -12,32 +12,32 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
-      obscureText: false,
-      style: TextStyle(fontSize: 18),
-      textAlign: TextAlign.center,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 12.0),
-          hintText: "Your login",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(25.0))),
-    );
+    //  final emailField = TextField(
+    //     obscureText: false,
+    //     style: TextStyle(fontSize: 18),
+    //     textAlign: TextAlign.center,
+    //     decoration: InputDecoration(
+    //         contentPadding: EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 12.0),
+    //         hintText: "Your login",
+    //         border:
+    //             OutlineInputBorder(borderRadius: BorderRadius.circular(25.0))),
+    //   );
 
-    final passwordField = TextFormField(
-      autofocus: false,
-      style: TextStyle(fontSize: 18),
-      obscureText: true,
-      textAlign: TextAlign.center,
-      decoration: InputDecoration(
-        hintText: 'Your Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 12.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
-      ),
-    );
+    //   final passwordField = TextFormField(
+    //     autofocus: false,
+    //     style: TextStyle(fontSize: 18),
+    //     obscureText: true,
+    //     textAlign: TextAlign.center,
+    //     decoration: InputDecoration(
+    //       hintText: 'Your Password',
+    //       contentPadding: EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 12.0),
+    //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.0)),
+    //     ),
+    //   );
 
     final loginButton = CupertinoButton(
         child: Text(
-          'Submit',
+          'LOGIN',
           style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -47,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(15.0),
         color: accentColor,
         onPressed: () {
-          print('pressed');
+          print('loggin');
+          Navigator.of(context).pushNamed('/miro_oath');
         });
 
     return Scaffold(
@@ -70,16 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
                   textAlign: TextAlign.center,
                   style: textStyle),
-              Padding(
-                padding: EdgeInsets.fromLTRB(25, 35, 25, 15),
-                child: emailField,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(25, 0, 25, 15),
-                child: passwordField,
-              ),
+              // Padding(
+              //   padding: EdgeInsets.fromLTRB(25, 35, 25, 15),
+              //   child: emailField,
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.fromLTRB(25, 0, 25, 15),
+              //   child: passwordField,
+              // ),
               SizedBox(
-                height: 10,
+                height: 100,
               ),
               loginButton
             ],
