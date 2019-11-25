@@ -22,6 +22,13 @@ final clientId = oauthCfg['CLIENT_ID'];
 final secretId = oauthCfg['CLIENT_SECRET'];
 final baseUrl = oauthCfg['BASE_URL'];
 
+tokenExist() async {
+  final exist = _localFile.then((file) {
+    return file.existsSync();
+  });
+  return exist;
+}
+
 getToken(code) async {
   final credentialsFile = await _localFile;
   var exists = await credentialsFile.exists();

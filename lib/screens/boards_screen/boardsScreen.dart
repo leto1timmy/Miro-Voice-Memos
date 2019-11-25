@@ -8,6 +8,8 @@ class BoardsScreen extends StatefulWidget {
 class _BoardsScreenState extends State<BoardsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.white,
+    );
   }
 }
