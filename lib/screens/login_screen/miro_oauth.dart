@@ -32,6 +32,17 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
     super.dispose();
   }
 
+  getTokenFormCode(url, baseUrl) async {
+    if (url.startsWith(baseUrl)) {
+      RegExp regExp = new RegExp("code=(.*?)&");
+      this.code = regExp.firstMatch(url)?.group(1);
+      print("code $code");
+      print("sssssfasdasfasdsssss");
+      var token = await getToken(code);
+      print("asdasdasd" + token.accessToken);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -52,13 +63,7 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
       print('changed ' + url);
       if (authorized != true) {
         setState(() {
-          if (url.startsWith(baseUrl)) {
-            RegExp regExp = new RegExp("code=(.*?)&");
-            this.code = regExp.firstMatch(url)?.group(1);
-            print("code $code");
-            print("sssssfasdasfasdsssss");
-            var token = getToken(code);
-          }
+          getTokenFormCode(url, baseUrl);
         });
       }
     });

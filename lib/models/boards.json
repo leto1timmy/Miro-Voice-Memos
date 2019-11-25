@@ -1,0 +1,49 @@
+{
+  "type": "list",
+  "limit": 100,
+  "offset": 0,
+  "size": 1,
+  "nextLink": null,
+  "prevLink": null,
+  "data": [
+    {
+      "type": "board",
+      "viewLink": "https://miro.com/app/board/o9J_k0jX30s=",
+      "id": "o9J_k0jX30s=",
+      "name": "Untitled",
+      "description": "",
+      "picture": null,
+      "currentUserConnection": {
+        "type": "board-user-connection",
+        "role": "owner",
+        "user": {
+          "type": "user",
+          "name": "Sergey",
+          "id": "3074457345710988604"
+        },
+        "id": "3074457345710990608"
+      },
+      "owner": {
+        "type": "user",
+        "name": "Sergey",
+        "id": "3074457345710988604"
+      },
+      "sharingPolicy": {
+        "access": "PRIVATE",
+        "teamAccess": "PRIVATE"
+      },
+      "modifiedAt": "2018-03-14T12:09:55Z",
+      "modifiedBy": {
+        "type": "user",
+        "name": "Sergey",
+        "id": "3074457345710988604"
+      },
+      "createdAt": "2018-03-14T12:09:55Z",
+      "createdBy": {
+        "type": "user",
+        "name": "Sergey",
+        "id": "3074457345710988604"
+      }
+    }
+  ]
+}
