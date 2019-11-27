@@ -5,20 +5,18 @@ import 'package:miro_voice_memos/modules/2oauth/2oauth_cfg.dart';
 import 'dart:convert' as convert;
 import 'package:miro_voice_memos/modules/2oauth/token.dart';
 
-main() async {
-  var token = new Token("boards:write boards:read", "3074457347037872302",
-      "3074457347037984023", "b812a48a-d65b-4232-a90b-22dc7c7932bb", "Bearer");
-  // ["#f5f6f8","#fff9b1","#f5d128","#d0e17a","#d5f692","#a6ccf5","#67c6c0","#23bfe7","#ff9d48","#ea94bb","#f16c7f","#b384bb"]
-  var style = new Style("#fff9b1");
-  var widget = new Widget("sticker", "trululu ulalala", style);
-  var miro = new MiroProvider();
+// main() async {
+//   var token = new Token("boards:write boards:read", "3074457347037872302",
+//       "3074457347037984023", "b812a48a-d65b-4232-a90b-22dc7c7932bb", "Bearer");
+//   // ["#f5f6f8","#fff9b1","#f5d128","#d0e17a","#d5f692","#a6ccf5","#67c6c0","#23bfe7","#ff9d48","#ea94bb","#f16c7f","#b384bb"]
+//   var style = new Style("#fff9b1");
+//   var widget = new Widget("sticker", "trululu ulalala", style);
+//   var miro = new MiroProvider();
 
-  //var boards = miro.getAllBoards(token);
-  //var boards = await miro.getBoard(token, "o9J_kwdigFY=");
-  //var boards = await miro.getAllBoards(token);
-  var createdWidget = await miro.createWidget(token, widget, "o9J_kwdigFY=");
-  //print(createdWidget.id);
-}
+//   var boards = await miro.getAllBoards(token);
+
+//   print(boards[0].name);
+// }
 
 class MiroProvider {
   final apiBase = oauthCfg['API_BASE'];

@@ -38,7 +38,7 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
       this.code = regExp.firstMatch(url)?.group(1);
       print("code $code");
       print("sssssfasdasfasdsssss");
-      var token = await getToken(code);
+      var token = await getTokenFromCode(code);
       print("asdasdasd" + token.accessToken);
     }
   }
