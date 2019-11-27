@@ -28,27 +28,49 @@ class _BoardsScreenState extends State<BoardsScreen> {
     if (_activeBoards == null) return Container();
     return Scaffold(
         backgroundColor: Colors.white,
-        body: ListView.builder(
-            itemCount: _activeBoards.length,
-            itemBuilder: (context, index) {
-              final board = _activeBoards[index];
-              return Column(mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start
-                      children: <Widget>[],) Padding(
-                  padding: EdgeInsets.fromLTRB(25, 50, 25, 10),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(board.name,
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold)),
-                        (board.description != null && board.description != '')
-                            ? Text(board.description)
-                            : Text('No description provided'),
-                        Text(
-                            'Created ${DateTime.parse(board.createdAt)}') //TODO: PARSE TO DATE
-                      ]));
-            }));
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Center(
+                child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+              child: Text('Boards', style: TextStyle(fontSize: 26)),
+            )),
+            Expanded(
+                child: ListView.builder(
+                    itemCount: _activeBoards.length,
+                    itemBuilder: (context, index) {
+                      final board = _activeBoards[index];
+                      return Padding(
+                          padding: EdgeInsets.fromLTRB(25, 20, 25, 10),
+                          child: GestureDetector(
+                            onTap: () {
+                              print('Tapped ' + board.name);
+                              Navigator.of(context).pushNamed(
+                                '/board-item',
+                                arguments: board.name,
+                              );
+                            },
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(board.name,
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold)),
+                                  (board.description != null &&
+                                          board.description != '')
+                                      ? Text(board.description)
+                                      : Text('No description provided'),
+                                  Text(
+                                      'Created ${DateTime.parse(board.createdAt)}'),
+                                  //TODO: PARSE TO DATE
+                                ]),
+                          ));
+                    }))
+          ],
+        ));
   }
 }

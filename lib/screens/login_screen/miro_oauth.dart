@@ -36,10 +36,11 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
     if (url.startsWith(baseUrl)) {
       RegExp regExp = new RegExp("code=(.*?)&");
       this.code = regExp.firstMatch(url)?.group(1);
-      print("code $code");
-      print("sssssfasdasfasdsssss");
       var token = await getTokenFromCode(code);
-      print("asdasdasd" + token.accessToken);
+      if (token != null) {
+        flutterWebviewPlugin.close();
+        Navigator.of(context).pushNamed('/boards');
+      }
     }
   }
 
