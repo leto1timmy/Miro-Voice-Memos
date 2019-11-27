@@ -16,7 +16,7 @@ class RouteGenerator {
       case '/boards':
         return MaterialPageRoute(builder: (_) => (BoardsScreen()));
       case '/board-item':
-        // Validation of correct data type
+        //Validation of correct data type
         if (args is String) {
           return MaterialPageRoute(
             builder: (_) => BoardItemScreen(
