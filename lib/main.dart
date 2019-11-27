@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro_voice_memos/modules/voice-recognition/voice-recognition-impl.dart';
 import 'package:miro_voice_memos/screens/login_screen/miro_oauth.dart';
 import 'package:miro_voice_memos/screens/login_screen/login.dart';
 import './screens/boards_screen/boardsScreen.dart';
@@ -8,7 +9,7 @@ void main() async {
   bool _result = await tokenExist();
 
   runApp(new MaterialApp(
-    title: 'Flutter Demo',
+    title: 'Miro Voice Memos',
     theme: ThemeData(
       // This is the theme of your application.
       //
@@ -21,10 +22,11 @@ void main() async {
       // is not restarted.
       primarySwatch: Colors.blue,
     ),
-    home: LoginScreen(),
+    //home: LoginScreen(),
+    home: VoiceHome(),
     initialRoute: _result ? '/boards' : '/',
     routes: {
-      // '/': (BuildContext context) => LoginScreen(),
+      //'/': (BuildContext context) => LoginScreen(),
       '/miro_oath': (BuildContext contex) => MiroOauthScreen(),
       '/boards': (BuildContext contex) => BoardsScreen()
     },

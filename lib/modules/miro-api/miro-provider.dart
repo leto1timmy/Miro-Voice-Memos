@@ -8,9 +8,9 @@ import 'package:miro_voice_memos/modules/2oauth/token.dart';
 main() async {
   var token = new Token("boards:write boards:read", "3074457347037872302",
       "3074457347037984023", "b812a48a-d65b-4232-a90b-22dc7c7932bb", "Bearer");
-  var style = new Style("#d5f692");
-  var widget = new Widget("sticker",
-      "new text sdfasdf asdf d afd ad fasd fasd fasdf asdf as", style);
+  // ["#f5f6f8","#fff9b1","#f5d128","#d0e17a","#d5f692","#a6ccf5","#67c6c0","#23bfe7","#ff9d48","#ea94bb","#f16c7f","#b384bb"]
+  var style = new Style("#fff9b1");
+  var widget = new Widget("sticker", "trululu ulalala", style);
   var miro = new MiroProvider();
 
   //var boards = miro.getAllBoards(token);
