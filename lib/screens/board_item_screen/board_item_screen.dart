@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro_voice_memos/models/Board.dart';
 import 'package:miro_voice_memos/models/Widget.dart' as miroWidget;
 import 'package:miro_voice_memos/modules/2oauth/2oauth.dart';
 import 'package:miro_voice_memos/modules/miro-api/miro-provider.dart';
