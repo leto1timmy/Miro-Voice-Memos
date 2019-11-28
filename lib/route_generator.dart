@@ -21,7 +21,7 @@ class RouteGenerator {
         if (args is Board) {
           return MaterialPageRoute(
             builder: (_) => BoardItemScreen(
-              data: args,
+              board: args,
             ),
           );
         }

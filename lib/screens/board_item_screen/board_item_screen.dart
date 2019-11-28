@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:miro_voice_memos/models/Board.dart';
 import 'package:miro_voice_memos/models/Widget.dart' as miroWidget;
-import 'package:miro_voice_memos/modules/2oauth/2oauth.dart';
+import 'package:miro_voice_memos/modules/2oauth/2oauth.dart' as tk;
+import 'package:miro_voice_memos/modules/2oauth/token.dart';
 import 'package:miro_voice_memos/modules/miro-api/miro-provider.dart';
 //import 'package:miro_voice_memos/modules/voice-recognition/voice-recognition-impl.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class BoardItemScreen extends StatefulWidget {
-  final Board data;
+  final Board board;
 
   BoardItemScreen({
     Key key,
-    @required this.data,
+    @required this.board,
   }) : super(key: key);
 
   @override
-  _BoardItemScreenState createState() => _BoardItemScreenState(data);
+  _BoardItemScreenState createState() => _BoardItemScreenState(board);
 }
 
 class _BoardItemScreenState extends State<BoardItemScreen> {
-  String data;
+  Board board;
+  Token token;
   final miroProvider = new MiroProvider();
-  final token = getToken();
+
+  getToken() async {
+    return await tk.getToken();
+  }
+
+  _BoardItemScreenState(board) {
+    this.board = board;
+  }
 
   saveCard(text, boardId) async {
+    token = await getToken();
     var sticker =
         new miroWidget.Widget("sticker", text, new miroWidget.Style("#fff9b1"));
     return await miroProvider.createWidget(token, sticker, boardId);
-  }
-
-  _BoardItemScreenState(data) {
-    this.data = data;
   }
 
   SpeechRecognition _speechRecognition;
@@ -80,7 +86,7 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                 child: Text(
-                  data.name,
+                  board.name,
                   style: TextStyle(fontSize: 25),
                   textAlign: TextAlign.center,
                 )),
@@ -189,8 +195,12 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
                 mini: false,
                 backgroundColor: Colors.green,
                 onPressed: () {
-                  if (resultText != null && resultText.length > 0) {
-                    saveCard(resultText, this.data);
+                  if (_isListening)
+                    _speechRecognition.stop().then(
+                          (result) => setState(() => _isListening = result),
+                        );
+                  if (resultText != "") {
+                    saveCard(resultText, board.id);
                   }
                 },
               ),
