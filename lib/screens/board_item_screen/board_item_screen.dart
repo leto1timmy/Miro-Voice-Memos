@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:miro_voice_memos/models/Board.dart';
 //import 'package:miro_voice_memos/modules/voice-recognition/voice-recognition-impl.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class BoardItemScreen extends StatefulWidget {
-  final String data;
+  final Board data;
 
   BoardItemScreen({
     Key key,
@@ -15,7 +16,7 @@ class BoardItemScreen extends StatefulWidget {
 }
 
 class _BoardItemScreenState extends State<BoardItemScreen> {
-  String data;
+  Board data;
 
   _BoardItemScreenState(data) {
     this.data = data;
@@ -65,6 +66,13 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Padding(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                child: Text(
+                  data.name,
+                  style: TextStyle(fontSize: 25),
+                  textAlign: TextAlign.center,
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -76,13 +84,19 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
                     mini: false,
                     backgroundColor: Colors.deepOrange,
                     onPressed: () {
-                      if (_isListening)
+                      print('canceled');
+                      if (_isListening) {
                         _speechRecognition.cancel().then(
                               (result) => setState(() {
                                 _isListening = result;
                                 resultText = "";
                               }),
                             );
+                      } else {
+                        setState(() {
+                          resultText = "";
+                        });
+                      }
                     },
                   ),
                 ),

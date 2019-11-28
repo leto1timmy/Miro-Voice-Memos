@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro_voice_memos/models/Board.dart';
 import './screens/login_screen/login.dart';
 import './screens/login_screen/miro_oauth.dart';
 import './screens/boards_screen/boardsScreen.dart';
@@ -17,7 +18,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => (BoardsScreen()));
       case '/board-item':
         //Validation of correct data type
-        if (args is String) {
+        if (args is Board) {
           return MaterialPageRoute(
             builder: (_) => BoardItemScreen(
               data: args,
