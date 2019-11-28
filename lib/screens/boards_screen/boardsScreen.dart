@@ -49,7 +49,7 @@ class _BoardsScreenState extends State<BoardsScreen> {
                               print('Tapped ' + board.name);
                               Navigator.of(context).pushNamed(
                                 '/board-item',
-                                arguments: board.name,
+                                arguments: board,
                               );
                             },
                             child: Column(
