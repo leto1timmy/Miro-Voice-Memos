@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miro_voice_memos/models/Widget.dart' as miroWidget;
+import 'package:miro_voice_memos/modules/2oauth/2oauth.dart';
+import 'package:miro_voice_memos/modules/miro-api/miro-provider.dart';
 //import 'package:miro_voice_memos/modules/voice-recognition/voice-recognition-impl.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
@@ -16,6 +19,14 @@ class BoardItemScreen extends StatefulWidget {
 
 class _BoardItemScreenState extends State<BoardItemScreen> {
   String data;
+  final miroProvider = new MiroProvider();
+  final token = getToken();
+
+  saveCard(text, boardId) async {
+    var sticker =
+        new miroWidget.Widget("sticker", text, new miroWidget.Style("#fff9b1"));
+    return await miroProvider.createWidget(token, sticker, boardId);
+  }
 
   _BoardItemScreenState(data) {
     this.data = data;
@@ -164,13 +175,9 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
                 mini: false,
                 backgroundColor: Colors.green,
                 onPressed: () {
-                  // if (_isListening)
-                  //   _speechRecognition.cancel().then(
-                  //         (result) => setState(() {
-                  //           _isListening = result;
-                  //           resultText = "";
-                  //         }),
-                  //       );
+                  if (resultText != null && resultText.length > 0) {
+                    saveCard(resultText, this.data);
+                  }
                 },
               ),
             ),
