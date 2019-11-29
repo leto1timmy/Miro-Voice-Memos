@@ -30,8 +30,8 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
   }
 
   getLastCardXY(token, boardId) async {
-    double x = -300;
-    double y = -300.0;
+    double x = -300.0;
+    double y = -325.0;
 
     List<miroWidget.Widget> cards =
         await miroProvider.getWidgets(token, boardId, "sticker");
