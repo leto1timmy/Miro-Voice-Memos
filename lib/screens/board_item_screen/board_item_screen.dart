@@ -30,20 +30,18 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
   }
 
   getLastCardXY(token, boardId) async {
-    double x = -200;
+    double x = -300;
     double y = -300.0;
 
     List<miroWidget.Widget> cards =
         await miroProvider.getWidgets(token, boardId, "sticker");
     cards.forEach((el) {
-      print("!!!!!!!!!");
-      print(y);
       if (el.y != null && el.y > y) {
         y = el.y;
         x = el.x;
       }
     });
-    return [x, y + 100.0];
+    return [x, y + 105.0];
   }
 
   _BoardItemScreenState(board) {
@@ -53,9 +51,6 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
   saveCard(text, boardId) async {
     token = await getToken();
     List<double> coord = await getLastCardXY(token, boardId);
-    print("+++++++");
-    print(coord[0]);
-    print(coord[1]);
     var sticker = new miroWidget.Widget(
         "sticker", text, new miroWidget.Style("#fff9b1"), coord[0], coord[1]);
     return await miroProvider.createWidget(token, sticker, boardId);
