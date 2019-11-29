@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:miro_voice_memos/models/Board.dart';
+import 'package:miro_voice_memos/models/User.dart';
 import 'package:miro_voice_memos/models/Widget.dart' as miroWidget;
 import 'package:miro_voice_memos/modules/2oauth/2oauth.dart' as tk;
 import 'package:miro_voice_memos/modules/2oauth/token.dart';
 import 'package:miro_voice_memos/modules/miro-api/miro-provider.dart';
-//import 'package:miro_voice_memos/modules/voice-recognition/voice-recognition-impl.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class BoardItemScreen extends StatefulWidget {
@@ -22,10 +22,28 @@ class BoardItemScreen extends StatefulWidget {
 class _BoardItemScreenState extends State<BoardItemScreen> {
   Board board;
   Token token;
+  User user;
   final miroProvider = new MiroProvider();
 
   getToken() async {
     return await tk.getToken();
+  }
+
+  getLastCardXY(token, boardId) async {
+    double x = -200;
+    double y = -300.0;
+
+    List<miroWidget.Widget> cards =
+        await miroProvider.getWidgets(token, boardId, "sticker");
+    cards.forEach((el) {
+      print("!!!!!!!!!");
+      print(y);
+      if (el.y != null && el.y > y) {
+        y = el.y;
+        x = el.x;
+      }
+    });
+    return [x, y + 100.0];
   }
 
   _BoardItemScreenState(board) {
@@ -34,8 +52,12 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
 
   saveCard(text, boardId) async {
     token = await getToken();
-    var sticker =
-        new miroWidget.Widget("sticker", text, new miroWidget.Style("#fff9b1"));
+    List<double> coord = await getLastCardXY(token, boardId);
+    print("+++++++");
+    print(coord[0]);
+    print(coord[1]);
+    var sticker = new miroWidget.Widget(
+        "sticker", text, new miroWidget.Style("#fff9b1"), coord[0], coord[1]);
     return await miroProvider.createWidget(token, sticker, boardId);
   }
 

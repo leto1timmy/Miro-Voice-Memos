@@ -1,0 +1,16 @@
+{
+  "type": "user",
+  "role": "developer",
+  "email": "user@miro.com",
+  "industry": "software_development",
+  "createdAt": "2018-03-12T05:34:08Z",
+  "company": "Miro",
+  "picture": {
+    "type": "picture",
+    "imageUrl": "https://r.realtimeboard.com/4747478734/123687/32/45/1/size210.jpg",
+    "id": "3074498545646781157"
+  },
+  "name": "User Userovich",
+  "state": "registered",
+  "id": "3009852896039815271"
+}
