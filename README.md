@@ -2,7 +2,7 @@
 
 ## You may know the scenario...
 
-You travel home after hard, long and very creative discussion. On the way you got important an insight after this meeting. The feeling like you got light from sky. You see discussing problem from another point. But you afraid, that you will not remember this gold idea tommorow. 
+You travel home after hard, long and very creative discussion. On the way you have got an important insight after meeting. The feeling like you have got light from sky. You see discussing problem from another point, but you afraid that you will not remember this gold idea tommorow. 
 
 ## Miro Voice Memos
 
