@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:miro_voice_memos/modules/2oauth/2oauth.dart';
 import '../../modules/2oauth/2oauth_cfg.dart';
+import '../../utils/Utils.dart';
 
 class MiroOauthScreen extends StatefulWidget {
   @override
@@ -39,7 +41,7 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
       var token = await getTokenFromCode(code);
       if (token != null) {
         flutterWebviewPlugin.close();
-        Navigator.of(context).pushNamed('/boards');
+        Navigator.pushNamedAndRemoveUntil(context, '/boards', (_) => false);
       }
     }
   }
@@ -76,11 +78,17 @@ class _MiroOauthScreenState extends State<MiroOauthScreen> {
         "https://miro.com/oauth/authorize?response_type=code&client_id=$clientId&redirect_uri=$baseUrl/oauth";
 
     print(loginUrl);
-
     return new WebviewScaffold(
         url: loginUrl,
+        hidden: true,
+        initialChild: Center(
+            child: SpinKitWave(
+          size: MediaQuery.of(context).size.height * 0.07,
+          color: Utils.accentColor,
+        )),
         appBar: new AppBar(
-          title: new Text("Login to someservise..."),
+          bottomOpacity: 0.0,
+          title: Text('miro logging in'),
         ));
   }
 }

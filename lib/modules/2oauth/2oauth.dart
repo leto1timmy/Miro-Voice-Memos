@@ -63,14 +63,15 @@ getTokenFromCode(code) async {
 }
 
 revokeToken(accessToken) async {
+  print('inside revoke token ' + accessToken);
   final credentialsFile = await _localFile;
   var exists = await credentialsFile.exists();
   var revoked = false;
   var uri = "$apiBase/oauth/revoke?access_token=$accessToken";
   var response = await http.post(uri);
-  var jsonResponse = convert.jsonDecode(response.body);
-  if (response.statusCode == 200) {
-    print("Request success -> revoke done $jsonResponse.");
+  print(response.statusCode);
+  if (response.statusCode == 204) {
+    print("Request success -> revoke done");
     revoked = true;
   } else {
     var jsonResponse = convert.jsonDecode(response.body);
