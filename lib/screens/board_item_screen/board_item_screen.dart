@@ -6,6 +6,7 @@ import 'package:miro_voice_memos/modules/2oauth/2oauth.dart' as tk;
 import 'package:miro_voice_memos/modules/2oauth/token.dart';
 import 'package:miro_voice_memos/modules/miro-api/miro-provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
+import '../../utils/Utils.dart';
 
 class BoardItemScreen extends StatefulWidget {
   final Board board;
@@ -61,6 +62,7 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
   bool _isListening = false;
 
   String resultText = "";
+  var textController = TextEditingController(); //TODO: Editing text manually
 
   @override
   void initState() {
@@ -95,18 +97,44 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        title: Text(board.name),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              tk.getToken().then((token) {
+                tk.revokeToken(token.accessToken).then((revoked) {
+                  if (revoked == true) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/', (_) => false);
+                  }
+                });
+              });
+            },
+            iconSize: 25,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            padding: EdgeInsets.fromLTRB(0, 0, 25, 0),
+            icon: const Icon(
+              Icons.exit_to_app,
+              color: Colors.black,
+            ),
+          )
+        ],
+      ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(
-                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                child: Text(
-                  board.name,
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
-                )),
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(bottom: 20, top: 50),
+              child: Text(
+                'Create note, everything metters',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -166,6 +194,16 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
                 ),
               ],
             ),
+            if (_isListening == true)
+              Text(
+                '🔴 Recording',
+                style: TextStyle(fontSize: 16),
+              )
+            else
+              Text(
+                '🌑 Say something',
+                style: TextStyle(fontSize: 16),
+              ),
             Card(
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
