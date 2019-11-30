@@ -7,6 +7,7 @@ import 'package:miro_voice_memos/modules/2oauth/token.dart';
 import 'package:miro_voice_memos/modules/miro-api/miro-provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import '../../utils/Utils.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class BoardItemScreen extends StatefulWidget {
   final Board board;
@@ -98,6 +99,7 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
+        backgroundColor: Utils.backgroundColor,
         title: Text(board.name),
         actions: <Widget>[
           IconButton(
@@ -122,6 +124,7 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
           )
         ],
       ),
+      backgroundColor: Utils.backgroundColor,
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -139,12 +142,19 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 50.0, right: 10),
+                  padding: const EdgeInsets.only(bottom: 50.0, right: 20),
                   child: FloatingActionButton(
                     heroTag: "btnCancel",
-                    child: Icon(Icons.cancel),
+                    child: Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                      size: 50,
+                    ),
                     mini: false,
-                    backgroundColor: Colors.deepOrange,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    highlightElevation: 0,
+                    splashColor: Colors.transparent,
                     onPressed: () {
                       print('canceled');
                       if (_isListening) {
@@ -163,33 +173,54 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 50.0, right: 10),
+                  padding: const EdgeInsets.only(bottom: 50.0, right: 20),
                   child: FloatingActionButton(
                     heroTag: "btnMic",
-                    child: Icon(Icons.mic),
+                    child: Icon(
+                      Icons.mic,
+                      color: Colors.blue,
+                      size: 50,
+                    ),
                     mini: false,
                     onPressed: () {
-                      if (_isAvailable && !_isListening)
+                      if (_isAvailable && !_isListening) {
+                        print('IS AVAILABLE ' + _isAvailable.toString());
+                        print('IS LISTENING ' + _isListening.toString());
+                        resultText = "";
                         _speechRecognition
                             .listen(locale: "en_US")
                             .then((result) => print('$result'));
+                      }
                     },
-                    backgroundColor: Colors.pink,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    highlightElevation: 0,
+                    splashColor: Colors.transparent,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 50.0),
                   child: FloatingActionButton(
                     heroTag: "btnStop",
-                    child: Icon(Icons.stop),
+                    child: Icon(
+                      Icons.stop,
+                      color: Colors.orange,
+                      size: 50,
+                    ),
                     mini: false,
-                    backgroundColor: Colors.deepPurple,
                     onPressed: () {
                       if (_isListening)
                         _speechRecognition.stop().then(
-                              (result) => setState(() => _isListening = result),
+                              (result) => setState(() {
+                                print('STOP RESULT ' + result.toString());
+                                _isListening = result;
+                              }),
                             );
                     },
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    highlightElevation: 0,
+                    splashColor: Colors.transparent,
                   ),
                 ),
               ],
@@ -201,7 +232,7 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
               )
             else
               Text(
-                '🌑 Say something',
+                '🌑 Press mic icon and say something',
                 style: TextStyle(fontSize: 16),
               ),
             Card(
@@ -246,18 +277,75 @@ class _BoardItemScreenState extends State<BoardItemScreen> {
               padding: const EdgeInsets.only(top: 50.0),
               child: FloatingActionButton(
                 heroTag: "btnSave",
-                child: Icon(Icons.save),
+                child: Icon(Icons.save, color: Colors.green, size: 60),
                 mini: false,
-                backgroundColor: Colors.green,
                 onPressed: () {
+                  print('pressed');
                   if (_isListening)
                     _speechRecognition.stop().then(
                           (result) => setState(() => _isListening = result),
                         );
                   if (resultText != "") {
-                    saveCard(resultText, board.id);
+                    saveCard(resultText, board.id).then((result) {
+                      if (result != null) {
+                        Alert(context: context, title: "Saved", buttons: [
+                          DialogButton(
+                            child: Text(
+                              'Cool',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                            color: Utils.accentColor,
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                          )
+                        ]).show();
+                      } else {
+                        Alert(
+                            context: context,
+                            title: "Something went wrong",
+                            buttons: [
+                              DialogButton(
+                                child: Text(
+                                  'Try again',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Roboto'),
+                                ),
+                                color: Utils.accentColor,
+                                onPressed: () => Navigator.pop(context),
+                                width: 120,
+                              )
+                            ]).show();
+                      }
+                    });
+                  } else {
+                    Alert(
+                        context: context,
+                        title: "Empty note, say something and try again",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                            color: Utils.accentColor,
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                          )
+                        ]).show();
                   }
                 },
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                highlightElevation: 0,
+                splashColor: Colors.transparent,
               ),
             ),
           ],

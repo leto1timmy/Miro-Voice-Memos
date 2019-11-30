@@ -20,6 +20,7 @@ dependencies:
   flutter_webview_plugin:
   http:
   flutter_spinkit: 3.0.0
+  rflutter_alert: ^1.0.3
   flutter:
     sdk: flutter
 
