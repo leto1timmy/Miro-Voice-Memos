@@ -8,3 +8,15 @@ You travel home after hard, long and very creative discussion. On the way you ha
 [Video Presentation](https://youtu.be/T8fM1YO2rx4)
 
 Miro Voice Memos is crossplatform mobile app, integrated with miro api. In easy way you can choose your board and add sticker with your idea. You just click rec button and start saying about what you think. App will recognize your speech, create sticker with your idea and place it to the board. No one idea will lost from moment when you start use this app.
+
+
+## How to run the app
+
+1. Install flutter and phone emulator. (https://flutter.dev/docs/get-started/install)
+2. Run app:
+```
+git clone https://github.com/leto1timmy/Miro-Voice-Memos.git
+flutter emulators --launch 'your emulator'
+flutter run
+```
+3. Enjoy the app.
